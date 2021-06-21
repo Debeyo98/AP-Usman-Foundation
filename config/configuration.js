@@ -7,4 +7,6 @@ module.exports = {
         res.redirect('/admin/login')
     }
 }, 
+
+ mongoURI: process.env.mongoURI
 }

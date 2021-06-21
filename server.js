@@ -1,4 +1,5 @@
 //Bring in dependencies/Modules
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const mongoose = require('mongoose');
@@ -12,17 +13,17 @@ const notifier = require('node-notifier');
 const {DateTime} = require('luxon')
 const {Comment} = require('./models/comment');
 require("./config/passport")(passport);
+const DB = require('./config/configuration').mongoURI
 
 
 // Define express function
 const app = express();
-const PORT = 7800;
 
 // Configure logger
 app.use(logger('dev'));
 
 // Configure mongoose to connect to database
-mongoose.connect("mongodb://localhost/apusmanfoundation", {
+mongoose.connect(DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then((response) => {
@@ -134,6 +135,6 @@ app.post('/comment', (req, res, err) => {
 });
 
 
-app.listen(PORT, () => {
-    console.log(`Server started on port:::: ${PORT}`)
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on port::::, ${process.env.PORT}`)
 });
